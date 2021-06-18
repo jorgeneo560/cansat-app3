@@ -175,6 +175,7 @@ namespace cansat_app
             this.btnSendData.TabIndex = 6;
             this.btnSendData.Text = "Send Data";
             this.btnSendData.UseVisualStyleBackColor = true;
+            this.btnSendData.Visible = false;
             this.btnSendData.Click += new System.EventHandler(this.btnSendData_Click);
             // 
             // btnConnect
@@ -190,6 +191,7 @@ namespace cansat_app
             this.btnConnect.TabIndex = 5;
             this.btnConnect.Text = "Connect";
             this.btnConnect.UseVisualStyleBackColor = true;
+            this.btnConnect.Visible = false;
             this.btnConnect.Click += new System.EventHandler(this.btnConnect_Click);
             // 
             // btnResolution
@@ -207,7 +209,7 @@ namespace cansat_app
             this.btnResolution.Name = "btnResolution";
             this.btnResolution.Size = new System.Drawing.Size(132, 29);
             this.btnResolution.TabIndex = 1;
-            this.btnResolution.Text = "Resolution";
+            this.btnResolution.Text = "START";
             this.btnResolution.UseVisualStyleBackColor = false;
             this.btnResolution.Click += new System.EventHandler(this.btnResolution_Click);
             // 

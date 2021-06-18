@@ -12,7 +12,7 @@ namespace Cansat2021
 {
     public class CsvHelper
     {
-        public static void writeCsvFromList(List<string> telemetryList)
+        public static void writeCsvFromList(List<string> telemetryList, string path)
         {
             #region Option1
             if (!string.IsNullOrEmpty(telemetryList[3])) //si hay algún valor en la 4ta posición de la lista...
@@ -43,12 +43,12 @@ namespace Cansat2021
                             CmdEcho = telemetryList[18]
                         }
                     };
-                    string path = "C:\\Flight_1231_C.csv";
-                    handleContainerFile(path, records);
+                    //string path = "C:\\Flight_1231_C.csv";
+                    handleContainerFile(path+ "\\Flight_1231_C.csv", records);
                 }
                 else
                 {
-                    string path;
+                    //string path;
                     var records = new List<SciencePayload>
                     {
                         new SciencePayload
@@ -62,8 +62,10 @@ namespace Cansat2021
                             SpRotationRate = telemetryList[6]
                         }
                     };
-                    path = telemetryList[3] == "SP1" ? "C:\\Flight_1231_SP1.csv" : "C:\\Flight_1231_SP2.csv";
-                    handlePayloadFile(path, records);
+                    string path2;
+
+                    path2 = telemetryList[3] == "SP1" ? "\\Flight_1231_SP1.csv" : "\\Flight_1231_SP2.csv";
+                    handlePayloadFile(path+path2, records);
                 }
             }
             #endregion //cuando viene completo 12,265,155,,,,,,,,,,,
@@ -95,12 +97,12 @@ namespace Cansat2021
                         CmdEcho = telemetryList[18]
                     }
                 };
-                string path = "C:\\Flight_1231_C.csv";
-                handleContainerFile(path, records);
+                //string path = "C:\\Flight_1231_C.csv";
+                handleContainerFile(path+ "\\Flight_1231_C.csv", records);
             }
             else if (telemetryList.Count == 7)
             {
-                string path;
+                //string path;
                 var records = new List<SciencePayload>
                 {
                     new SciencePayload
@@ -114,9 +116,10 @@ namespace Cansat2021
                         SpRotationRate = telemetryList[6]
                     }
                 };
-                path = telemetryList[3] == "SP1" ? "C:\\Flight_1231_SP1.csv" : "C:\\Flight_1231_SP2.csv";
+                String path2;
+                path2 = telemetryList[3] == "SP1" ? "\\Flight_1231_SP1.csv" : "\\Flight_1231_SP2.csv";
 
-                handlePayloadFile(path, records);
+                handlePayloadFile(path+path2, records);
             }
             #endregion//
 
@@ -162,6 +165,7 @@ namespace Cansat2021
             if (!File.Exists(path))
             {
                 var myFile = File.Create(path);
+                
                 myFile.Close();
             }
             var csvFileLenth = new FileInfo(path).Length;

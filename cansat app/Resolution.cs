@@ -9,7 +9,7 @@ using System.IO.Ports;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-
+using System.IO;
 namespace cansat_app
 {
     public partial class Resolution : Form
@@ -18,9 +18,15 @@ namespace cansat_app
         public static List<byte> bufferout = new List<byte>();
         public static List<string> telemetry = new List<string>();
         public static SerialPort _serialPort;
+        public static string simfile;
+        public static string export;
+        public static int line;
+        public static System.IO.StreamReader file ;
         public Resolution()
         {
             InitializeComponent();
+            simfile = textBox3.Text;
+            export = textBox4.Text;
         }
 
         private void pictureBox7_Click(object sender, EventArgs e)
@@ -38,67 +44,45 @@ namespace cansat_app
 
             //CsvHelper csvHelper = new CsvHelper();
             //var myFile = csvHelper.readExampleFile();
-            string name = "";
-            string message = "";
+            //string name = "";
+            //string message = "";
             StringComparer stringComparer = StringComparer.OrdinalIgnoreCase;
             //Thread readThread = new Thread(Read);
 
             // Create a new SerialPort object with default settings.  
-            serialPort1 = new SerialPort();
+            //serialPort1 = new SerialPort();
 
             // Allow the user to set the appropriate properties.  
             serialPort1.PortName = SetPortName(Form1.portname );
-            serialPort1.BaudRate = SetPortBaudRate(19200);
-            serialPort1.Parity = SetPortParity(_serialPort.Parity);
-            serialPort1.DataBits = SetPortDataBits(_serialPort.DataBits);
-            serialPort1.StopBits = SetPortStopBits(_serialPort.StopBits);
-            serialPort1.Handshake = SetPortHandshake(_serialPort.Handshake);
+            //serialPort1.BaudRate = SetPortBaudRate(19200);
+            //serialPort1.Parity = SetPortParity(_serialPort.Parity);
+            //serialPort1.DataBits = SetPortDataBits(_serialPort.DataBits);
+            //serialPort1.StopBits = SetPortStopBits(_serialPort.StopBits);
+            //serialPort1.Handshake = SetPortHandshake(_serialPort.Handshake);
 
 
             //Set the read / write timeouts
-            serialPort1.ReadTimeout = 500;
-            serialPort1.WriteTimeout = 500;
+            //serialPort1.ReadTimeout = 500;
+            //serialPort1.WriteTimeout = 500;
             if (!serialPort1.IsOpen)
             {
                 serialPort1.Open();
                 serialPort1.DataReceived += new SerialDataReceivedEventHandler(port_OnReceiveDatazz);
             }
 
-            //_serialPort.Open();
             _continue = true;
-            //readThread.Start();
+           
 
-            Console.Write("Name: ");
-            //name = Console.ReadLine();
-
-            Console.WriteLine("Type QUIT to exit");
-
-            //while (_continue)
-            //{
-            //    //message = Console.ReadLine();
-
-            //    if (stringComparer.Equals("quit", message))
-            //    {
-            //        _continue = false;
-            //    }
-            //    else
-            //    {
-            //        _serialPort.WriteLine(
-            //            String.Format("<{0}>: {1}", name, message));
-            //    }
-            //}
-
-            //readThread.Join();
-            //_serialPort.Close();
+         
         }
 
         private  void port_OnReceiveDatazz(object sender,
                                   SerialDataReceivedEventArgs e)
         {
-            SerialPort sp = (SerialPort)sender;
-            var byteReaded = _serialPort.ReadByte();
-            while (_serialPort.BytesToRead >1){
-
+            //SerialPort sp = (SerialPort)sender;
+            
+            while (serialPort1.BytesToRead >1){
+                var byteReaded = serialPort1.ReadByte();
                 if (byteReaded == 0x7E)
                 {
                     buffer.Clear();
@@ -119,13 +103,13 @@ namespace cansat_app
                             message += (char)buffer[i];
                         }
 
-
-
+                        // this.textBox1.Text = message;
+                        SetText(message);
                         //Split message and send to CsvHelper class to create or append 
                         telemetry = message.Split(',').ToList();
-                        Cansat2021.CsvHelper.writeCsvFromList(telemetry);
+                        Cansat2021.CsvHelper.writeCsvFromList(telemetry,export);
 
-                        fillForm(telemetry);
+                        //fillForm(telemetry);
                         //Send message to Mqtt server
                         Mqtt.Publish(message);
                     }
@@ -265,8 +249,9 @@ namespace cansat_app
 
         private void button4_Click(object sender, EventArgs e)
         {
-            
-                var datatx = "CMD,1231,SIM,ACTIVATE";
+            timer1.Enabled = true;
+            file = new System.IO.StreamReader(this.textBox3.Text);
+            var datatx = "CMD,1231,SIM,ACTIVATE";
             bufferout.Clear();
             bufferout.Add(0x7E);
             bufferout.Add(0x00);
@@ -359,6 +344,206 @@ namespace cansat_app
         private void label7_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            var datatx = "CMD,1231,CX,ON";
+            bufferout.Clear();
+            bufferout.Add(0x7E);
+            bufferout.Add(0x00);
+            bufferout.Add((byte)(datatx.Length + 5));
+            bufferout.Add(0x01);
+            bufferout.Add(0x01);
+            bufferout.Add(0x01); //0x01 
+            bufferout.Add(0x11); //0x11
+            bufferout.Add(0x00);
+
+            for (int i = 0; i < datatx.Length; i++)
+            {
+                bufferout.Add((byte)datatx[i]);
+            }
+            byte chkaux = 0;
+            for (int i = 3; i < datatx.Length + 8; i++)
+            {
+                chkaux += bufferout[i];
+            }
+            chkaux = (byte)(0xFF - chkaux);
+            bufferout.Add(chkaux);
+
+
+
+
+            if (!serialPort1.IsOpen)
+            {
+                serialPort1.Open();
+
+            }
+            serialPort1.Write(bufferout.ToArray(), 0, bufferout.Count);
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+        delegate void SetTextCallback(string text);
+
+        private void SetText(string text)
+        {
+            // InvokeRequired required compares the thread ID of the
+            // calling thread to the thread ID of the creating thread.
+            // If these threads are different, it returns true.
+            if (this.textBox1.InvokeRequired)
+            {
+                SetTextCallback d = new SetTextCallback(SetText);
+                this.Invoke(d, new object[] { text });
+            }
+            else
+            {
+                this.textBox1.Text = text;
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog1 = new OpenFileDialog
+            {
+                InitialDirectory = @"C:\",
+                Title = "Browse Text Files",
+
+                CheckFileExists = true,
+                CheckPathExists = true,
+
+                DefaultExt = "txt",
+                Filter = "txt files (*.txt)|*.txt",
+                FilterIndex = 2,
+                RestoreDirectory = true,
+
+                ReadOnlyChecked = true,
+                ShowReadOnly = true
+            };
+
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                textBox3.Text = openFileDialog1.FileName;
+            }
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog1 = new OpenFileDialog
+            {
+                InitialDirectory = @"C:\",
+                Title = "Browse Text Files",
+
+                CheckFileExists = false,
+                CheckPathExists = true,
+
+                DefaultExt = "txt",
+                Filter = "txt files (*.txt)|*.txt",
+                FilterIndex = 2,
+                RestoreDirectory = true,
+
+                ReadOnlyChecked = false,
+                ShowReadOnly = true
+            };
+
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                textBox4.Text = openFileDialog1.FileName;
+            }
+        }
+
+        private void textBox4_TextChanged(object sender, EventArgs e)
+        {
+            Resolution.export = this.textBox4.Text;
+        }
+
+        private void textBox3_TextChanged(object sender, EventArgs e)
+        {
+            Resolution.simfile= this.textBox3.Text;
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            
+            {
+                string command;
+                if ((command = file.ReadLine()) == null)
+                {
+                    file.Close();
+                    timer1.Enabled = false;
+
+                }else{
+
+                      while (     (command.Contains("#") | command.Contains(" ") ) &      ((command = file.ReadLine()) != null)   )
+                       {
+                        command = file.ReadLine();
+                        
+                        }
+
+                    command=command.Replace("$", "1231");
+                    var datatx = command;
+                    bufferout.Clear();
+                    bufferout.Add(0x7E);
+                    bufferout.Add(0x00);
+                    bufferout.Add((byte)(datatx.Length + 5));
+                    bufferout.Add(0x01);
+                    bufferout.Add(0x01);
+                    bufferout.Add(0x01); //0x01 
+                    bufferout.Add(0x11); //0x11
+                    bufferout.Add(0x00);
+
+                    for (int i = 0; i < datatx.Length; i++)
+                    {
+                        bufferout.Add((byte)datatx[i]);
+                    }
+                    byte chkaux = 0;
+                    for (int i = 3; i < datatx.Length + 8; i++)
+                    {
+                        chkaux += bufferout[i];
+                    }
+                    chkaux = (byte)(0xFF - chkaux);
+                    bufferout.Add(chkaux);
+
+
+
+
+                    if (!serialPort1.IsOpen)
+                    {
+                        serialPort1.Open();
+
+                    }
+                    if ( (command != "") | (command!= "### End of file ###")  )
+                    {
+                        textBox2.Text = command;
+                        serialPort1.Write(bufferout.ToArray(), 0, bufferout.Count);
+                    }
+                    
+                }
+
+
+
+
+            }
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            timer1.Enabled = true;
+            file = new System.IO.StreamReader(this.textBox3.Text);
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+           
         }
     }
 }
