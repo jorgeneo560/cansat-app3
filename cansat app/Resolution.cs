@@ -368,7 +368,8 @@ namespace cansat_app
         }
 
         //FUNCION PUBLICA MANDAR DATOS A LABEL EN TIEMPO REAL
-        public void PutData(string pc,string mt,string gpsT, string gpsLa, string gpsLo, string gpsA, string gpsS, string cV, string cA,string cT,string p1cp, string p2cp, String sp1r, String sp2r) {
+        public void PutData(string pc, string mt, string gpsT, string gpsLa, string gpsLo, string gpsA, string gpsS, string cV, string cA, string cT, string p1cp, string p2cp, String sp1r, String sp2r)
+        {
             packetCount_lbl.Text = pc;
             missionTime_lbl.Text = mt;
             gpsTime_lbl.Text = gpsT;
@@ -381,12 +382,32 @@ namespace cansat_app
             cTemperature_lbl.Text = cT;
             P1pc_lbl.Text = p1cp;
             P2pc_lbl.Text = p2cp;
-            if(sp1r.Equals("R"))
+            if (sp1r.Equals("R"))
             {
                 P1green_img.Visible = true;
                 P1red_img.Visible = false;
 
+            }
+            else
+            {
+                P1green_img.Visible = false;
+                P1red_img.Visible = true;
+            }
+            if (sp2r.Equals("R"))
+            {
+                P2green_img.Visible = true;
+                P2red_img.Visible = false;
+
+            }
+            else
+            {
+                P2green_img.Visible = false;
+                P2red_img.Visible = true;
+            }
+            Application.DoEvents();
         }
+
+       
 
         private void button6_Click(object sender, EventArgs e)
         {
@@ -587,25 +608,7 @@ namespace cansat_app
         {
            
         }
-            }
-            else
-            {
-                P1green_img.Visible = false;
-                P1red_img.Visible = true;
-            }
-            if (sp2r.Equals("R"))
-            {
-                P2green_img.Visible = true;
-                P2red_img.Visible = false;
-
-            }
-            else
-            {
-                P2green_img.Visible = false;
-                P2red_img.Visible = true;
-            }
-            Application.DoEvents();
-        }
+            
 
         public void PutDataPayload1(string p1a,string p1t, string p1rpm)
         {
@@ -621,5 +624,9 @@ namespace cansat_app
             P2RPM_lbl.Text = p2rpm;
         }
 
+        private void label18_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
