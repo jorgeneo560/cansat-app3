@@ -131,15 +131,68 @@ namespace cansat_app
                         fillForm(telemetry);
                         //Send message to Mqtt server
                         Mqtt.Publish(message);
+
                     }
                 }
 
             }
         }
 
-        public  void fillForm(List<string> telemetry)
+        public void fillForm(List<string> telemetry)
         {
-            textBox1.Text = "hola";
+            if (telemetry[3] == "C")
+            {
+
+                var Containerdata = new Container {
+                    TeamId = telemetry[0],
+                    MissionTime = telemetry[1],
+                    PacketCount = telemetry[2],
+                    PacketType = telemetry[3],
+                    Mode = telemetry[4],
+                    Sp1Released = telemetry[5],
+                    Sp2Released = telemetry[6],
+                    Altitude = telemetry[7],
+                    Temperature = telemetry[8],
+                    Voltage = telemetry[9],
+                    GpsTime = telemetry[10],
+                    GpsLatitude = telemetry[11],
+                    GpsLongitude = telemetry[12],
+                    GpsAltitude = telemetry[13],
+                    GpsSats = telemetry[14],
+                    SoftwareState = telemetry[15],
+                    Sp1PacketCount = telemetry[16],
+                    Sp2PacketCount = telemetry[17],
+                    CmdEcho = telemetry[18]
+                };
+
+                PutData(Containerdata.PacketCount, Containerdata.MissionTime, Containerdata.GpsTime, Containerdata.GpsLatitude, Containerdata.GpsLongitude, Containerdata.GpsAltitude
+                    , Containerdata.GpsSats, Containerdata.Voltage, Containerdata.Altitude, Containerdata.Temperature, Containerdata.Sp1PacketCount, Containerdata.Sp2PacketCount,
+                    Containerdata.Sp1Released, Containerdata.Sp2Released);
+            }
+            else
+            {
+                var PayloadData = 
+                    new SciencePayload
+                    {
+                        TeamId = telemetry[0],
+                        MissionTime = telemetry[1],
+                        PacketCount = telemetry[2],
+                        PacketType = telemetry[3],
+                        SpAltitude = telemetry[4],
+                        SpTemperature = telemetry[5],
+                        SpRotationRate = telemetry[6]
+                    
+                    };
+                if(PayloadData.PacketType == "SP1")
+                {
+                    PutDataPayload1(PayloadData.SpAltitude, PayloadData.SpTemperature, PayloadData.SpRotationRate);
+                }
+                else
+                {
+                    PutDataPayload2(PayloadData.SpAltitude, PayloadData.SpTemperature, PayloadData.SpRotationRate);
+                }
+                
+            }
         }
         public static string SetPortName(string defaultPortName)
         {
@@ -434,5 +487,40 @@ namespace cansat_app
             P2RPM_lbl.Text = p2rpm;
         }
 
+
+    }
+    public class Container
+    {
+        public string TeamId { get; set; }
+        public string MissionTime { get; set; }
+        public string PacketCount { get; set; }
+        public string PacketType { get; set; }
+        public string Mode { get; set; }
+        public string Sp1Released { get; set; }
+        public string Sp2Released { get; set; }
+        public string Altitude { get; set; }
+        public string Temperature { get; set; }
+        public string Voltage { get; set; }
+        public string GpsTime { get; set; }
+        public string GpsLatitude { get; set; }
+        public string GpsLongitude { get; set; }
+        public string GpsAltitude { get; set; }
+        public string GpsSats { get; set; }
+        public string SoftwareState { get; set; }
+        public string Sp1PacketCount { get; set; }
+        public string Sp2PacketCount { get; set; }
+        public string CmdEcho { get; set; }
+
+    }
+
+    public class SciencePayload
+    {
+        public string TeamId { get; set; }
+        public string MissionTime { get; set; }
+        public string PacketCount { get; set; }
+        public string PacketType { get; set; }
+        public string SpAltitude { get; set; }
+        public string SpTemperature { get; set; }
+        public string SpRotationRate { get; set; }
     }
 }
