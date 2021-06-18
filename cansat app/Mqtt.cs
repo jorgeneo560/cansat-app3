@@ -34,17 +34,16 @@ namespace cansat_app
 
         }
 
-        public static string Publish(string mensaje)
+        public static void Publish(string mensaje)
         {
-            conect();
-            if (client.IsConnected)
+            
+            if (!client.IsConnected)
             {
-                client.Publish(_topic[0], Encoding.UTF8.GetBytes(mensaje));
-
-                return mensaje;
+                conect();
+                
             }
-            else return "no esta conectado";
-
+            client.Publish(_topic[0], Encoding.UTF8.GetBytes(mensaje));
+;
         }
 
         static void client_MqttMsgUnsubscribed(object sender, MqttMsgUnsubscribedEventArgs e)
