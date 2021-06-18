@@ -10,6 +10,9 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
+//Prueba
+using System.Threading;
+
 namespace cansat_app
 {
     public partial class Resolution : Form
@@ -338,7 +341,19 @@ namespace cansat_app
 
         private void button1_Click(object sender, EventArgs e)
         {
-
+            
+            for(double i = 0; i < 1000; i++)
+            {
+                double n = i;
+                String N = n.ToString();
+                double m = i * 0.5;
+                String M = m.ToString();
+                PutData(N,M, N, M,N, M, N, M, N, M, N, M,"R","N");
+                PutDataPayload1(N, M, N);
+                PutDataPayload2(N, M, N);
+                Thread.Sleep(200);
+            }
+            
         }
 
         private void Resolution_Load(object sender, EventArgs e)
@@ -360,5 +375,64 @@ namespace cansat_app
         {
 
         }
+
+        private void missionTime_lbl_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        //FUNCION PUBLICA MANDAR DATOS A LABEL EN TIEMPO REAL
+        public void PutData(string pc,string mt,string gpsT, string gpsLa, string gpsLo, string gpsA, string gpsS, string cV, string cA,string cT,string p1cp, string p2cp, String sp1r, String sp2r) {
+            packetCount_lbl.Text = pc;
+            missionTime_lbl.Text = mt;
+            gpsTime_lbl.Text = gpsT;
+            gpsLatitude_lbl.Text = gpsLa;
+            gpsLongitude_lbl.Text = gpsLo;
+            gpsAltitude_lbl.Text = gpsA;
+            gpsSats_lbl.Text = gpsS;
+            voltage_lbl.Text = cV;
+            cAltitude_lbl.Text = cA;
+            cTemperature_lbl.Text = cT;
+            P1pc_lbl.Text = p1cp;
+            P2pc_lbl.Text = p2cp;
+            if(sp1r.Equals("R"))
+            {
+                P1green_img.Visible = true;
+                P1red_img.Visible = false;
+
+            }
+            else
+            {
+                P1green_img.Visible = false;
+                P1red_img.Visible = true;
+            }
+            if (sp2r.Equals("R"))
+            {
+                P2green_img.Visible = true;
+                P2red_img.Visible = false;
+
+            }
+            else
+            {
+                P2green_img.Visible = false;
+                P2red_img.Visible = true;
+            }
+            Application.DoEvents();
+        }
+
+        public void PutDataPayload1(string p1a,string p1t, string p1rpm)
+        {
+            P1A_lbl.Text = p1a;
+            P1T_lbl.Text = p1t;
+            P1RPM_lbl.Text = p1rpm;
+        }
+
+        public void PutDataPayload2(string p2a, string p2t, string p2rpm)
+        {
+            P2A_lbl.Text = p2a;
+            P2T_lbl.Text = p2t;
+            P2RPM_lbl.Text = p2rpm;
+        }
+
     }
 }
