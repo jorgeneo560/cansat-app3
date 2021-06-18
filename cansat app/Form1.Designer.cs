@@ -61,9 +61,8 @@ namespace cansat_app
             this.TitleBar.Controls.Add(this.btnClose);
             this.TitleBar.Dock = System.Windows.Forms.DockStyle.Top;
             this.TitleBar.Location = new System.Drawing.Point(0, 0);
-            this.TitleBar.Margin = new System.Windows.Forms.Padding(2);
             this.TitleBar.Name = "TitleBar";
-            this.TitleBar.Size = new System.Drawing.Size(1080, 18);
+            this.TitleBar.Size = new System.Drawing.Size(1620, 28);
             this.TitleBar.TabIndex = 0;
             this.TitleBar.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TitleBar_MouseDown);
             // 
@@ -72,10 +71,9 @@ namespace cansat_app
             this.btnRestore.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnRestore.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnRestore.Image = ((System.Drawing.Image)(resources.GetObject("btnRestore.Image")));
-            this.btnRestore.Location = new System.Drawing.Point(1039, 2);
-            this.btnRestore.Margin = new System.Windows.Forms.Padding(2);
+            this.btnRestore.Location = new System.Drawing.Point(1558, 3);
             this.btnRestore.Name = "btnRestore";
-            this.btnRestore.Size = new System.Drawing.Size(15, 13);
+            this.btnRestore.Size = new System.Drawing.Size(22, 20);
             this.btnRestore.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.btnRestore.TabIndex = 3;
             this.btnRestore.TabStop = false;
@@ -87,10 +85,9 @@ namespace cansat_app
             this.btnMinimize.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnMinimize.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnMinimize.Image = ((System.Drawing.Image)(resources.GetObject("btnMinimize.Image")));
-            this.btnMinimize.Location = new System.Drawing.Point(1021, 2);
-            this.btnMinimize.Margin = new System.Windows.Forms.Padding(2);
+            this.btnMinimize.Location = new System.Drawing.Point(1532, 3);
             this.btnMinimize.Name = "btnMinimize";
-            this.btnMinimize.Size = new System.Drawing.Size(15, 13);
+            this.btnMinimize.Size = new System.Drawing.Size(22, 20);
             this.btnMinimize.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.btnMinimize.TabIndex = 2;
             this.btnMinimize.TabStop = false;
@@ -101,10 +98,9 @@ namespace cansat_app
             this.btnMaximize.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnMaximize.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnMaximize.Image = ((System.Drawing.Image)(resources.GetObject("btnMaximize.Image")));
-            this.btnMaximize.Location = new System.Drawing.Point(1039, 2);
-            this.btnMaximize.Margin = new System.Windows.Forms.Padding(2);
+            this.btnMaximize.Location = new System.Drawing.Point(1558, 3);
             this.btnMaximize.Name = "btnMaximize";
-            this.btnMaximize.Size = new System.Drawing.Size(15, 13);
+            this.btnMaximize.Size = new System.Drawing.Size(22, 20);
             this.btnMaximize.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.btnMaximize.TabIndex = 1;
             this.btnMaximize.TabStop = false;
@@ -115,10 +111,9 @@ namespace cansat_app
             this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnClose.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnClose.Image = ((System.Drawing.Image)(resources.GetObject("btnClose.Image")));
-            this.btnClose.Location = new System.Drawing.Point(1058, 2);
-            this.btnClose.Margin = new System.Windows.Forms.Padding(2);
+            this.btnClose.Location = new System.Drawing.Point(1587, 3);
             this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(15, 13);
+            this.btnClose.Size = new System.Drawing.Size(22, 20);
             this.btnClose.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.btnClose.TabIndex = 0;
             this.btnClose.TabStop = false;
@@ -134,19 +129,19 @@ namespace cansat_app
             this.VerticalMenu.Controls.Add(this.btnResolution);
             this.VerticalMenu.Controls.Add(this.btnMain);
             this.VerticalMenu.Dock = System.Windows.Forms.DockStyle.Left;
-            this.VerticalMenu.Location = new System.Drawing.Point(0, 18);
-            this.VerticalMenu.Margin = new System.Windows.Forms.Padding(2);
+            this.VerticalMenu.Location = new System.Drawing.Point(0, 28);
             this.VerticalMenu.Name = "VerticalMenu";
-            this.VerticalMenu.Size = new System.Drawing.Size(132, 460);
+            this.VerticalMenu.Size = new System.Drawing.Size(198, 707);
             this.VerticalMenu.TabIndex = 1;
             this.VerticalMenu.Paint += new System.Windows.Forms.PaintEventHandler(this.VerticalMenu_Paint);
             // 
             // comboBox1
             // 
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(6, 230);
+            this.comboBox1.Location = new System.Drawing.Point(9, 354);
+            this.comboBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 21);
+            this.comboBox1.Size = new System.Drawing.Size(180, 28);
             this.comboBox1.TabIndex = 0;
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
@@ -155,10 +150,9 @@ namespace cansat_app
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Impact", 12F);
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(18, 137);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label1.Location = new System.Drawing.Point(27, 211);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(103, 20);
+            this.label1.Size = new System.Drawing.Size(153, 29);
             this.label1.TabIndex = 7;
             this.label1.Text = "Team Id = 1231";
             // 
@@ -168,10 +162,9 @@ namespace cansat_app
             this.btnSendData.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSendData.Font = new System.Drawing.Font("Impact", 12F);
             this.btnSendData.ForeColor = System.Drawing.Color.DarkOrchid;
-            this.btnSendData.Location = new System.Drawing.Point(18, 435);
-            this.btnSendData.Margin = new System.Windows.Forms.Padding(2);
+            this.btnSendData.Location = new System.Drawing.Point(27, 669);
             this.btnSendData.Name = "btnSendData";
-            this.btnSendData.Size = new System.Drawing.Size(96, 31);
+            this.btnSendData.Size = new System.Drawing.Size(144, 48);
             this.btnSendData.TabIndex = 6;
             this.btnSendData.Text = "Send Data";
             this.btnSendData.UseVisualStyleBackColor = true;
@@ -184,10 +177,9 @@ namespace cansat_app
             this.btnConnect.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnConnect.Font = new System.Drawing.Font("Impact", 12F);
             this.btnConnect.ForeColor = System.Drawing.Color.DarkOrchid;
-            this.btnConnect.Location = new System.Drawing.Point(18, 372);
-            this.btnConnect.Margin = new System.Windows.Forms.Padding(2);
+            this.btnConnect.Location = new System.Drawing.Point(27, 572);
             this.btnConnect.Name = "btnConnect";
-            this.btnConnect.Size = new System.Drawing.Size(96, 31);
+            this.btnConnect.Size = new System.Drawing.Size(144, 48);
             this.btnConnect.TabIndex = 5;
             this.btnConnect.Text = "Connect";
             this.btnConnect.UseVisualStyleBackColor = true;
@@ -204,10 +196,9 @@ namespace cansat_app
             this.btnResolution.ForeColor = System.Drawing.Color.White;
             this.btnResolution.Image = ((System.Drawing.Image)(resources.GetObject("btnResolution.Image")));
             this.btnResolution.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnResolution.Location = new System.Drawing.Point(0, 176);
-            this.btnResolution.Margin = new System.Windows.Forms.Padding(2);
+            this.btnResolution.Location = new System.Drawing.Point(0, 271);
             this.btnResolution.Name = "btnResolution";
-            this.btnResolution.Size = new System.Drawing.Size(132, 29);
+            this.btnResolution.Size = new System.Drawing.Size(198, 45);
             this.btnResolution.TabIndex = 1;
             this.btnResolution.Text = "START";
             this.btnResolution.UseVisualStyleBackColor = false;
@@ -216,10 +207,9 @@ namespace cansat_app
             // btnMain
             // 
             this.btnMain.Image = ((System.Drawing.Image)(resources.GetObject("btnMain.Image")));
-            this.btnMain.Location = new System.Drawing.Point(0, 22);
-            this.btnMain.Margin = new System.Windows.Forms.Padding(2);
+            this.btnMain.Location = new System.Drawing.Point(0, 34);
             this.btnMain.Name = "btnMain";
-            this.btnMain.Size = new System.Drawing.Size(129, 85);
+            this.btnMain.Size = new System.Drawing.Size(194, 131);
             this.btnMain.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.btnMain.TabIndex = 0;
             this.btnMain.TabStop = false;
@@ -230,22 +220,20 @@ namespace cansat_app
             this.PanelContainer.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(66)))), ((int)(((byte)(82)))));
             this.PanelContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.PanelContainer.Font = new System.Drawing.Font("Impact", 12F);
-            this.PanelContainer.Location = new System.Drawing.Point(132, 18);
-            this.PanelContainer.Margin = new System.Windows.Forms.Padding(2);
+            this.PanelContainer.Location = new System.Drawing.Point(198, 28);
             this.PanelContainer.Name = "PanelContainer";
-            this.PanelContainer.Size = new System.Drawing.Size(948, 460);
+            this.PanelContainer.Size = new System.Drawing.Size(1422, 707);
             this.PanelContainer.TabIndex = 2;
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1080, 478);
+            this.ClientSize = new System.Drawing.Size(1620, 735);
             this.Controls.Add(this.PanelContainer);
             this.Controls.Add(this.VerticalMenu);
             this.Controls.Add(this.TitleBar);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.btnMain_Click);
